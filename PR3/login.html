@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                // Make an HTTP POST request to the Lambda function
+                $.ajax({
+                    url: "https://2ytj86at1j.execute-api.us-east-1.amazonaws.com/default/lambdaLogin",
+                    method: "POST",
+                    data: JSON.stringify({ username: username, password: password }),
+                    contentType: "application/json",
+                    success: function (data) {
+                        // Handle the response from the Lambda function
+                        var message = data.message;
+                        alert(message);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle any errors that occur during the request
+                        console.error(error);
+                    }
+                });
+
+                // Example: Logging the entered username and password
+                console.log("Username: " + username);
+                console.log("Password: " + password);
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+
+    <button>Login</button>
+</body>
+</html>
