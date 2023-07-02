@@ -9,26 +9,21 @@
                 var username = document.getElementById("username").value;
                 var password = document.getElementById("password").value;
 
-                // Make an HTTP POST request to the Lambda function
-                $.ajax({
+                // Make an HTTP GET request with query parameters
+                $.get({
                     url: "https://2ytj86at1j.execute-api.us-east-1.amazonaws.com/default/lambdaLogin",
-                    method: "POST",
-                    data: JSON.stringify({ username: username, password: password }),
-                    contentType: "application/json",
+                    data: { method: "operacion", user: username, pass: password },
                     success: function (data) {
                         // Handle the response from the Lambda function
-                        var message = data.message;
-                        alert(message);
+                        var json = JSON.parse(data);
+                        var result = json.res;
+                        alert(result);
                     },
                     error: function (xhr, status, error) {
                         // Handle any errors that occur during the request
                         console.error(error);
                     }
                 });
-
-                // Example: Logging the entered username and password
-                console.log("Username: " + username);
-                console.log("Password: " + password);
             });
         });
     </script>

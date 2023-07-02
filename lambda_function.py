@@ -6,8 +6,8 @@ import json
 host = "54.173.189.228"
 
 def lambda_handler(event , context):
-    username = event['username']
-    password = event['password']
+    username = str(event["queryStringParameters"]['username'])
+    password = str(event['password'])
     response = {}  # Initialize the response dictionary
 
     try:
